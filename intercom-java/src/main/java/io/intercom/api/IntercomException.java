@@ -43,6 +43,15 @@ public class IntercomException extends RuntimeException {
     }
 
     public Error getFirstError() {
-        return errorCollection.getErrors().get(0);
+        String message = "Could not read error message from server";
+        String code = "client_error";
+        Error error = new Error(code, message);
+        if(errorCollection!=null
+            && errorCollection.getErrors() != null
+            && errorCollection.getErrors().size() > 0
+            && errorCollection.getErrors().get(0) != null){
+            error = errorCollection.getErrors().get(0);
+        }
+        return error;
     }
 }
